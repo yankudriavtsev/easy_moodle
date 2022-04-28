@@ -9,12 +9,19 @@
         </thead>
         <tbody>
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-            v-for="(item, index) in items.data"
+            v-for="(row, index) in items.data"
             :key="'tbl_row' + index"
         >
-            <td class="px-6 py-4" v-for="column in columns">
-                {{ item[column.key] }}
-            </td>
+            <template v-for="column in columns">
+                <td class="px-6 py-4">
+                    <template v-if="column.component">
+                        <component :is="column.component" v-bind="column.getProps(row)" />
+                    </template>
+                    <template v-else>
+                        {{ row[column.key] }}
+                    </template>
+                </td>
+            </template>
         </tr>
         </tbody>
     </table>
@@ -23,6 +30,7 @@
 
 <script>
     import Pagination from "@/Components/DataTable/Pagination";
+    import Actions from "@/Pages/Instance/Components/TableRowActions";
 
     export default {
         props: {
@@ -36,6 +44,7 @@
             }
         },
         components: {
+            Actions,
             Pagination,
         },
     };
