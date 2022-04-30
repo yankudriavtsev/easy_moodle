@@ -1,6 +1,11 @@
 <template>
     <select @change="$emit('update:modelValue', $event.target.value)">
-        <option v-for="option in options" :value="option.value" :key="option.value">
+        <option
+            v-for="option in options"
+            :value="option.value"
+            :key="option.value"
+            :selected="value === option.value"
+        >
             {{ option.title }}
         </option>
     </select>
@@ -12,7 +17,8 @@
             options: {
                 type: Array,
                 required: true
-            }
+            },
+            value: [String]
         }
     };
 </script>
