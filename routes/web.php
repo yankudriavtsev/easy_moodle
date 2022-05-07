@@ -24,6 +24,14 @@ Route::get('/', function () {
     ]);
 });
 
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::resource('instances', \App\Http\Controllers\InstanceController::class)->except(['show']);
+});
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
