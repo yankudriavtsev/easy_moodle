@@ -14,7 +14,7 @@ class InstanceController extends Controller
     // todo enum for moodle version and server provider. value objects for values
     // todo error page
     // todo nav link activity
-    // todo tests
+    // todo tests (add to existing authorizations checks + index page tests)
     public function index(): Response
     {
         $availableMoodleVersions = collect(config('instances.available_moodle_versions'))->keyBy('key');
